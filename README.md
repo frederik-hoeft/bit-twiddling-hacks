@@ -5,7 +5,7 @@ _Styled in markdown by Frederik Höft._
 
 ---
 
-The words "I", "me", "my" refer to the original author of this document: Sean Eron Anderson (seander@cs.stanford.edu)
+In this first section the words "I", "me", "my" refer to the original author of this document: Sean Eron Anderson (seander@cs.stanford.edu)
 
 ---
 
@@ -1706,7 +1706,11 @@ Thanks to Dario Sneidermanis of Argentina, who provided this on November 28, 200
 
 # More Bit Twiddling Hacks
 
-This section contains some additional bit tricks I, Frederik Höft, have come up with over the years or have collected from different resources.
+---
+
+This second section contains some additional bit tricks I, Frederik Höft, have come up with over the years or have collected from different resources.
+
+---
 
 ## Vector-based Hex Encoding
 
