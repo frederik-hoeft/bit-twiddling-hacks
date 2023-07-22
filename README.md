@@ -1703,3 +1703,24 @@ w = t | ((((t & -t) / (v & -v)) >> 1) - 1);
 ```
 
 Thanks to Dario Sneidermanis of Argentina, who provided this on November 28, 2009.
+
+# More Bit Twiddling Hacks
+
+This section contains some additional bit tricks I, Frederik Höft, have come up with over the years or have collected from different resources.
+
+## Vector-based Hex Encoding
+
+Converts a vector of bytes (or an N-byte word) containing the pre-computed nibble values 0 - 15 to the corresponding ASCII values '0' - '9', 'A' - 'F' without branching or the utilization of look-up tables:
+
+```csharp
+[MethodImpl(MethodImplOptions.AggressiveInlining)]
+private static ulong ToHexCharBranchlessX8(ulong y)
+{
+    // each byte in the mask will be 0b0111_1111 if the value of that byte in the input was 9 or less, 0b0000_0000 otherwise.
+    ulong mask8 = (~((y >> 3) & ((y >> 2) | (y >> 1)) & 0x01010101_01010101uL) & 0x7F7F7F7F_7F7F7F7FuL) + 0x01010101_01010101uL;
+    //     |<------------------ high nibble of result ------------>|   |<-------- lower nibble ----------->|
+    return (0x30303030_30303030uL ^ (mask8 & 0x70707070_70707070uL)) | (y - (0x09090909_09090909uL & mask8));
+}
+```
+
+OR-ing the result with `0x20202020_20202020uL` will yield lowercase ASCII letters 'a'-'f' for values 10 to 15.
